@@ -29,6 +29,10 @@ export default function Horario(){
         })
     }, [])
 
+    useEffect(() => {
+        if (horarioData) settingHorario(horarioData)
+    }, [horarioData])
+
     function settingHorario(data){
         let tmpHorario = []
         setHorarioData(data)
@@ -59,19 +63,19 @@ export default function Horario(){
         tmpItem.fin = moment().format("YYYYMMDDHHmm")
         tmpArray[index] = tmpItem
         
-        updateHorarioToDb(tmpItem)
-        setHorario(tmpArray)
-        settingHorario(tmpArray)
         setOpenItem(false)
+        setHorarioData(tmpArray)
+        settingHorario(tmpArray)
+        updateHorarioToDb(tmpItem)
         return false
     }
     function addHorario(){
         let tmpArray = horarioData
         const item = {id:null, inicio: moment().format("YYYYMMDDHHmm"), fin:'', pedidos:''}
         tmpArray.push(item)
-        setHorario(tmpArray)
-        settingHorario(tmpArray)
+        setHorarioData(tmpArray)
         setOpenItem({item, index:tmpArray.length -1})
+        settingHorario(tmpArray)
         addHorarioToDb(item)
         return {item, index:tmpArray.length -1}
     }
@@ -79,27 +83,30 @@ export default function Horario(){
     function addPedidos(pedidos){
         let tmpArray = horarioData
         tmpArray[openItem.index].pedidos = tmpArray[openItem.index].pedidos + pedidos
-        setHorario(tmpArray)
-        settingHorario(tmpArray)
+        setHorarioData(tmpArray)
         setOpenItem({item: tmpArray[openItem.index], index: openItem.index})
+        settingHorario(tmpArray)
         updateHorarioToDb(tmpArray[openItem.index])
     }
 
     function updateHorarioItem(item,index){
         let tmpArray = horarioData
         tmpArray[index] = item
+        console.log(item)
 
-        updateHorarioToDb(tmpArray[index])
-        setHorario(tmpArray)
-        settingHorario(tmpArray)
+        setHorarioData(tmpArray)
         setOpenItem({item: tmpArray[openItem.index], index: openItem.index})
+        settingHorario(tmpArray)
+        updateHorarioToDb(tmpArray[index])
     }
 
     function deleteHorarioItem(index){
         let tmpArray = horarioData
         let tmpItem = tmpArray[index]
-        tmpArray.splice(index,1)
-        setHorario(tmpArray)
+        tmpArray = tmpArray.filter(el => el.id !=tmpArray[index].id)
+        
+        setHorarioData(tmpArray)
+        setOpenItem(false)
         settingHorario(tmpArray)
         deleteHorarioToDb(tmpItem.id)
 
