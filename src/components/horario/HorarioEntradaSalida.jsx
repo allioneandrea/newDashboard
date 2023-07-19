@@ -40,7 +40,7 @@ export default function HorarioEntradaSalida({item, addHorario, updateHorario, a
 
     function handleClick(){
         if(opened){
-            
+            console.log('opened' , opened)
             setOpened(updateHorario(opened.index))
             return
         }else{

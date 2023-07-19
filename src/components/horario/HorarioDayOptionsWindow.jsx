@@ -51,10 +51,15 @@ export default function HorarioDayOptionsWindow(props) {
         props.toggleHorarioDetailsOpen(false)
     }
 
+    function deleteItemHorario(){
+        props.eliminar(props.open) 
+        props.toggleHorarioDetailsOpen(false)
+    }
+
     return (
         <div className={"windowsOptionsDay " + (props.open ? 'open' : '')}>
             <div className="closeWindow" onClick={() => props.toggleHorarioDetailsOpen(false)}>X</div>
-            <form action="" onSubmit={handleSubmit}>
+            <form action="" onSubmit={(e) => handleSubmit(e)}>
                 <div className="horarioInputsFecha">
                     <input type="text" placeholder="inicio" ref={inicioDay} /> / 
                     <input type="text" placeholder="inicio" ref={inicioMonth} /> / 
@@ -72,10 +77,9 @@ export default function HorarioDayOptionsWindow(props) {
                 <div><input type="text" placeholder="pedidos" ref={pedidos} /></div>
                 <input type="hidden" ref={id} />
                 <div><button className="btnSaveItemHorario" type="submit" value="Guardar" >GUARDAR CAMBIOS</button></div>
-            <div>
-                <button className="btnDeleteItemHorario" onClick={() => {props.eliminar(index) 
-                props.toggleHorarioDetailsOpen(false)}}>Eliminar</button></div>
             </form>
+            <div>
+                <button className="btnDeleteItemHorario" onClick={deleteItemHorario}>Eliminar</button></div>
 
         </div>
     )

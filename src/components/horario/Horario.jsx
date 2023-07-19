@@ -30,16 +30,19 @@ export default function Horario(){
     }, [])
 
     useEffect(() => {
+        console.log('cambia la data', horarioData)
         if (horarioData) settingHorario(horarioData)
     }, [horarioData])
 
     function settingHorario(data){
-        let tmpHorario = []
+
         setHorarioData(data)
+        let tmpHorario = []
+        let openItem = false
+
         data.map((item, index) => {
-            if(!item.fin) {
-                setOpenItem({item, index})
-            }
+
+            if(!item.fin) {  openItem = {item, index} }
             const id = item.id
         
             const inicio = moment(item.inicio, MOMENT_PATTERN)
@@ -48,11 +51,13 @@ export default function Horario(){
             const diffM = fin.diff(inicio,'minutes')
             let countPedidos = 0
             pedidos.split('').map((item) => countPedidos += parseInt(item))
-            
+            if(inicio)
             tmpHorario.push({
                 id, inicio, fin, pedidos, countPedidos, diffM, index
             })
         })
+
+        setOpenItem(openItem)
         setHorario(tmpHorario)
     }
 
@@ -62,12 +67,13 @@ export default function Horario(){
         let tmpItem = tmpArray[index]
         tmpItem.fin = moment().format("YYYYMMDDHHmm")
         tmpArray[index] = tmpItem
+        console.log(tmpArray[index]) 
         
         setOpenItem(false)
         setHorarioData(tmpArray)
         settingHorario(tmpArray)
         updateHorarioToDb(tmpItem)
-        return false
+        return null
     }
     function addHorario(){
         let tmpArray = horarioData
@@ -87,10 +93,12 @@ export default function Horario(){
         setOpenItem({item: tmpArray[openItem.index], index: openItem.index})
         settingHorario(tmpArray)
         updateHorarioToDb(tmpArray[openItem.index])
+        return null
     }
 
     function updateHorarioItem(item,index){
         let tmpArray = horarioData
+        console.log(tmpArray)
         tmpArray[index] = item
         console.log(item)
 
@@ -100,15 +108,17 @@ export default function Horario(){
         updateHorarioToDb(tmpArray[index])
     }
 
-    function deleteHorarioItem(index){
+    function deleteHorarioItem(el){
         let tmpArray = horarioData
-        let tmpItem = tmpArray[index]
-        tmpArray = tmpArray.filter(el => el.id !=tmpArray[index].id)
-        
-        setHorarioData(tmpArray)
-        setOpenItem(false)
-        settingHorario(tmpArray)
-        deleteHorarioToDb(tmpItem.id)
+        let newArray = []
+        tmpArray.map(item => {
+            console.log(item.id ,el.id)
+            if(item.id !== el.id && item.inicio) newArray.push(item)
+        })
+        deleteHorarioToDb(el.id)
+        setHorarioData(newArray)
+        if(openItem.index == index) setOpenItem(false)
+        settingHorario(newArray)
 
     }
 
@@ -121,7 +131,10 @@ export default function Horario(){
     }
 
     const deleteHorarioToDb = async (id) => {
-        axios.post(CONSTANT.HORARIO_DB_URL+'/api/deleteHorario', {id})
+        axios.post(CONSTANT.HORARIO_DB_URL+'/api/deleteHorario', {id: id}).then(
+            data => console.log('eliminado',data)
+            )
+        .catch(console.log('no eliminado',error))
     }
 
     
