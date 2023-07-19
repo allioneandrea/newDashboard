@@ -1,0 +1,196 @@
+.horarioMonth {
+    color: #fff;
+    margin-top: 10px;
+}
+.horarioMonth .flechita {
+    align-self: flex-start;
+    position: absolute;
+    left: 5px;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    transition: .4s;
+}
+.horarioMonth.open .flechita {
+    transform: rotate(90deg);
+    transition: .4s;
+}
+.horarioMonthHeader {
+    background:  #0b280b;
+    width: 100%;
+    position: relative;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+
+}
+.horarioWeek {
+    height: 0;
+    min-height: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin-bottom: 0;
+    border-radius: 6px;
+    transition: .4s;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+.horarioMonth.open .horarioWeek{
+    color:#f3f3f3;
+    height: auto;
+    min-height: auto;
+    max-height: inherit;
+    background: #1A5D1A;
+    margin-top: 15px;
+    
+    transition: .4s;
+}
+.horarioDay {
+    height: 0;
+    min-height: 0;
+    max-height: 0;
+    overflow: hidden;
+    background:  #FAE392;
+    color: #2a2a2a;
+}
+.horarioDayHeader {
+    display: flex;
+    justify-content: space-around;
+    background: #f8d144;
+    border-bottom: 1px solid #bd9506;
+    border-top: 1px solid #bd9506;
+}
+.horarioMonth.open .horarioDay{
+    height: auto;
+    min-height: auto;
+    max-height: inherit;
+}
+.horarioItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3px;
+
+}
+
+.btnEntradaSalidaContainer {
+    display: flex;
+    height: 100px;
+}
+.btnEntradaSalidaContainer >div{
+    flex:1;
+    height: 100%;
+}
+
+.btnEntradaSalida {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    align-items: center;
+    color: #fff;
+    padding: 5px;
+    background: #1A5D1A;
+    border-radius: 8px;
+    border: 2px solid #195c19;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+.horarioResOpened {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.btnEntradaSalida.working {
+    background: #f8d144;
+    color: #3c3c3c;
+    border: 2px solid #bd9506;
+}
+
+.btnsPedidos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+.btnsPedidos button {
+
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+
+.windowsOptionsDay {
+    background: rgba(30,30,30,.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 60;
+    display: none;
+}
+.windowsOptionsDay input {
+    border-radius: 5px;
+    font-size: .9em;
+    line-height: 1.4em;
+    border: 0
+}
+.windowsOptionsDay.open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeWindow {
+    height: 30px;
+    width: 30px;
+    background: #8d2626;
+    border-radius: 50%;
+    color:#fff;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,.8);
+}
+
+.horarioInputsFecha {
+    display: flex;
+    justify-content: center;
+    color: #fff;
+}
+.horarioInputsFecha input {
+    text-align: center;
+    border-radius: 5px;
+    border: 0;
+    margin: 3px;
+    max-width: 25px;
+    justify-content: center;
+    outline: none;
+}
+.horarioInputsFecha input:nth-child(3) {
+    text-align: center;
+    border-radius: 5px;
+    border: 0;
+    margin: 3px;
+    max-width: 40px;
+}
+.btnDeleteItemHorario, .btnSaveItemHorario {
+    border: 1px solid rgba(255,255,255,.8);
+    color: #fff;
+    margin: 5px auto;
+}
+.btnSaveItemHorario {
+    background: #1A5D1A;
+}
+.btnDeleteItemHorario {
+    background: #8d2626;
+
+}
